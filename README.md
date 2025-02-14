@@ -1,3 +1,6 @@
+# Complete Blog: 
+https://medium.com/@learning.vamsi3203/ansible-project-f233c4160971
+
 # Ansible Realtime project
 
 ## Task 1
