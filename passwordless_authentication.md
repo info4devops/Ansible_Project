@@ -18,3 +18,49 @@ ssh-copy-id -f "-o IdentityFile <PATH TO PEM FILE>" ubuntu@<INSTANCE-PUBLIC-IP>
 - Go to the file `/etc/ssh/sshd_config.d/60-cloudimg-settings.conf`
 - Update `PasswordAuthentication yes`
 - Restart SSH -> `sudo systemctl restart ssh`
+
+
+##################################################################
+
+## Password-less Authentication
+
+1. Copy .pem key from the Control Node to all managed nodes as follows
+
+```bash
+
+scp -i ~/home/ubuntu/new-key.pem  ~/home/ubuntu/new-key.pem ubuntu@<Ubuntu EC2 Public IP>:/home/ubuntu
+
+```
+
+```bash
+
+scp -i /home/ubuntu/new-key.pem  /home/ubuntu/new-key.pem ec2-user@<Amazon-linux EC2 Public IP>:/home/ec2-user
+
+```
+
+2. Generate the public key on the control node
+
+```bash
+ssh-keygen -t rsa -b 4096
+
+```
+
+3. Execute the below command to establish passwordless authentication on managed nodes
+
+```bash
+
+ssh-copy-id -f "-o IdentityFile /home/ubuntu/new-key.pem" ubuntu@<Public IP>  # for ubuntu
+ssh-copy-id -f "-o IdentityFile /home/ubuntu/new-key.pem" ec2-user@<Public IP> # For Amazon-Linux
+
+```
+
+
+
+Verify the password-less authentication below
+
+Now we will be able to connect with the Managed node using its public IP
+
+```bash
+ssh <username>@<Public IP>
+
+```
