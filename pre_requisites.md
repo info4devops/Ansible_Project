@@ -3,6 +3,10 @@
 ## Install boto3
 
 ```
+sudo apt update
+sudo apt install python3-venv -y
+python3 -m venv myenv
+source myenv/bin/activate
 pip install boto3
 ```
 
@@ -10,6 +14,7 @@ pip install boto3
 
 ```
 ansible-galaxy collection install amazon.aws
+ansible-galaxy collection list | grep amazon.aws # to check the collections
 ```
 
 ## Setup Vault 
